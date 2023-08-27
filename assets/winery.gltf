@@ -1,0 +1,258 @@
+{
+    "asset" : {
+        "generator" : "Khronos glTF Blender I/O v1.6.16",
+        "version" : "2.0"
+    },
+    "scene" : 0,
+    "scenes" : [
+        {
+            "name" : "Scene",
+            "nodes" : [
+                0,
+                1,
+                2
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "winery_white"
+        },
+        {
+            "mesh" : 1,
+            "name" : "winery_glass"
+        },
+        {
+            "mesh" : 2,
+            "name" : "winery_red"
+        }
+    ],
+    "materials" : [
+        {
+            "doubleSided" : true,
+            "name" : "white",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.800000011920929,
+                    0.800000011920929,
+                    0.800000011920929,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        },
+        {
+            "doubleSided" : true,
+            "name" : "glass",
+            "pbrMetallicRoughness" : {}
+        },
+        {
+            "doubleSided" : true,
+            "name" : "red",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.7835381627082825,
+                    0.019382266327738762,
+                    0.006512105464935303,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "winery_white",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                }
+            ]
+        },
+        {
+            "name" : "winery_glass",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5
+                    },
+                    "indices" : 6,
+                    "material" : 1
+                }
+            ]
+        },
+        {
+            "name" : "winery_red",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 7,
+                        "NORMAL" : 8
+                    },
+                    "indices" : 9,
+                    "material" : 2
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 73835,
+            "max" : [
+                0.6078039407730103,
+                0.14693647623062134,
+                0.4750997722148895
+            ],
+            "min" : [
+                -0.601691722869873,
+                -0.15350210666656494,
+                -0.4947540760040283
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 73835,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 73835,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5125,
+            "count" : 126891,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 1208,
+            "max" : [
+                0.41387155652046204,
+                0.12649035453796387,
+                0.37337201833724976
+            ],
+            "min" : [
+                -0.5541704893112183,
+                -0.08407323807477951,
+                -0.2682655453681946
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 1208,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5123,
+            "count" : 2046,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5126,
+            "count" : 10853,
+            "max" : [
+                0.608462929725647,
+                0.06078704446554184,
+                0.42298534512519836
+            ],
+            "min" : [
+                0.13373024761676788,
+                -0.1508060097694397,
+                -0.234297513961792
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 10853,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5123,
+            "count" : 16278,
+            "type" : "SCALAR"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 886020,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 886020,
+            "byteOffset" : 886020
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 590680,
+            "byteOffset" : 1772040
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 507564,
+            "byteOffset" : 2362720
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 14496,
+            "byteOffset" : 2870284
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 14496,
+            "byteOffset" : 2884780
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 4092,
+            "byteOffset" : 2899276
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 130236,
+            "byteOffset" : 2903368
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 130236,
+            "byteOffset" : 3033604
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 32556,
+            "byteOffset" : 3163840
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 3196396,
+            "uri" : "winery.bin"
+        }
+    ]
+}
