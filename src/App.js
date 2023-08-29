@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 
 var canvas, canvasWrapper, renderer, scene, camera, sceneObj,
 sceneSize = {
@@ -19,7 +18,7 @@ settings = {
     minXRotate: -1.0 * Math.PI / 180.0,
     aspectRatio: 2,
     camera: {
-        deep: 50000,
+        deep: 10000,
         posX: 0,
         posY: -160,
         posZ: 1450
@@ -44,59 +43,96 @@ class App {
         scene.add(camera)
 
         //lights
-        const light = new THREE.AmbientLight(0xffffff, 1);
-        light.position.set(0, 0, 0);
-        scene.add(light);
+        const ambientLight = new THREE.AmbientLight(0xd0d2d7, 1);
+        const mainLight = new THREE.PointLight(0xffffff, .2);
+        mainLight.position.set(-.75, .35, 0)
+        const sideLight = new THREE.PointLight(0x6cbfff, .25);
+        sideLight.position.set(3.5, .5, -.4)
 
-        const light2 = new THREE.PointLight(0xffffff, 1.0);
-        light2.position.set(0, 10000, 0);
-        light2.castShadow = true;
-        scene.add(light2);
+        scene.add(ambientLight);
+        scene.add(mainLight);
+        scene.add(sideLight);
+
+        // const fog = new THREE.FogExp2(new THREE.Color("#FFFFFF"),.6)
+        // scene.fog = fog
 
         renderer = new THREE.WebGLRenderer({ 
             canvas: canvas, 
             antialias: true, 
             alpha: true, 
-            powerPreference: 'high-performance', 
-            preserveDrawingBuffer: true, 
-            premultipliedAlpha: true,
-            logarithmicDepthBuffer: true,
-            physicallyCorrectLights: true,
-            precision: 'highp'
+            // powerPreference: 'high-performance', 
+            // preserveDrawingBuffer: true, 
+            // premultipliedAlpha: false,
+            // logarithmicDepthBuffer: true,
+            // precision: 'highp'
 
         });
-        renderer.setClearColor( 0x000000, 0 );
-        renderer.setPixelRatio( window.devicePixelRatio );
+        // renderer.setClearColor( 0x000000, 0 );
+        renderer.setPixelRatio( Math.min(window.devicePixelRatio, 1.5) );
         renderer.setSize( sceneSize.width, sceneSize.height );
         // renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        // renderer.toneMappingExposure = 1;
-        // renderer.gammaOutput = true;
-        // renderer.gammaInput = true;
+        renderer.toneMappingExposure = 1;
+        renderer.gammaOutput = true;
+        renderer.gammaInput = true;
         // renderer.stencil = true;
         // renderer.depth = true;
 
-        // renderer.shadowMap.enabled = true
-        // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        renderer.shadowMap.enabled = true
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         // renderer.outputEncoding = THREE.sRGBEncoding;
         // renderer.physicallyCorrectLights = true;
 
+        const transparentMaterial = new THREE.MeshPhongMaterial({
+            // color: new THREE.Color('0xffffff'),
+            color: 16777215,
+            shininess: .5,
+            transparent: !0,
+            opacity: .3
+        });
+
+        // Создаем загрузчик текстур
+        const textureLoader = new THREE.TextureLoader();
+        // Загружаем карту окружающей засветки (aomap)
+        const aoMapTexture = textureLoader.load("./assets/test/winery_09.jpeg");
+
+        const mainMaterial = new THREE.MeshStandardMaterial({
+            // color: new THREE.Color('0xffffff'),
+            color: 16777215,
+            aoMap: aoMapTexture, // карта окружающей засветки
+            aoMapIntensity: 1.0 // интенсивность карты окружающей засветки
+        });
+
+        const redMaterial = new THREE.MeshPhongMaterial({
+            // color: new THREE.Color('0xff0000'),
+            color: 15017491,
+            shininess: .25,
+            transparent: !0,
+            opacity: .3
+        });
+
         sceneObj = new THREE.Object3D();
-        const dracoLoader = new DRACOLoader();
         let gltfLoader = new GLTFLoader();
-        gltfLoader.setPath('./assets/');
-        gltfLoader.setDRACOLoader( dracoLoader );
-        dracoLoader.setDecoderPath( './assets/' );
+        gltfLoader.setPath('./assets/test/');
         gltfLoader.load(
-            'winery.gltf',
+            'winery_09.gltf',
             (object) => {
-                // object.scene.traverse( function ( child ) {
-                //     if ( child instanceof THREE.Mesh ) {
-                //         // child.geometry.computeFaceNormals();
-                //         child.geometry.computeVertexNormals();
-                //         // child.material.side = THREE.DoubleSide;    
-                //         // child.material.map.anisotropy = maxAnisotropy;                    
-                //     }
-                // });
+                object.scene.traverse( function ( child ) {
+                    if ( child instanceof THREE.Mesh ) {
+                        console.log(child);
+                        child.geometry.computeVertexNormals();
+                        // child.material.side = THREE.DoubleSide;    
+                        
+                        if (child.name === 'winery_glass') {
+                            child.material = transparentMaterial  
+                        }
+                        if (child.name === 'winery_white') {
+                            child.material = mainMaterial  
+                        }
+                        if (child.name === 'winery_red') {
+                            child.material = redMaterial  
+                        }
+                    }
+                });
                 object.name = 'winery';
                 sceneObj.add(object.scene)
             }, (xhr) => {
@@ -145,7 +181,7 @@ function onCanvasResize() {
     canvas.width = sceneSize.width;
     canvas.height = sceneSize.height;
     
-    camera = new THREE.PerspectiveCamera( 50, sceneSize.width / sceneSize.height, 0.1, settings.camera.deep );
+    camera = new THREE.PerspectiveCamera( 45, sceneSize.width / sceneSize.height, 0.1, settings.camera.deep );
     camera.position.y = settings.camera.posY;
     camera.position.z = settings.camera.posZ;
     
@@ -182,10 +218,10 @@ function animate() {
     currentDeltaY = currentDeltaY + (deltaY - currentDeltaY) * step * 3
     sceneObj.rotation.x = currentDeltaY
     
-    requestAnimationFrame(animate);
     camera.updateMatrixWorld();    
     camera.updateProjectionMatrix();
     renderer.render(scene, camera);
+    requestAnimationFrame(animate);
 }
 
 export default App;
