@@ -43,7 +43,7 @@ class App {
         scene.add(camera)
 
         //lights
-        const ambientLight = new THREE.AmbientLight(0xd0d2d7, 1);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 1);
         const mainLight = new THREE.PointLight(0xffffff, .2);
         mainLight.position.set(-.75, .35, 0)
         const sideLight = new THREE.PointLight(0x6cbfff, .25);
@@ -71,14 +71,14 @@ class App {
         renderer.setPixelRatio( Math.min(window.devicePixelRatio, 1.5) );
         renderer.setSize( sceneSize.width, sceneSize.height );
         // renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1;
-        renderer.gammaOutput = true;
-        renderer.gammaInput = true;
+        // renderer.toneMappingExposure = 1;
+        // renderer.gammaOutput = true;
+        // renderer.gammaInput = true;
         // renderer.stencil = true;
         // renderer.depth = true;
 
         renderer.shadowMap.enabled = true
-        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        // renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         // renderer.outputEncoding = THREE.sRGBEncoding;
         // renderer.physicallyCorrectLights = true;
 
@@ -87,7 +87,7 @@ class App {
             color: 16777215,
             shininess: .5,
             transparent: !0,
-            opacity: .3
+            opacity: .5
         });
 
         // Создаем загрузчик текстур
@@ -95,11 +95,11 @@ class App {
         // Загружаем карту окружающей засветки (aomap)
         const aoMapTexture = textureLoader.load("./assets/test/winery_09.jpeg");
 
-        const mainMaterial = new THREE.MeshStandardMaterial({
-            // color: new THREE.Color('0xffffff'),
-            color: 16777215,
+        const mainMaterial = new THREE.MeshLambertMaterial({
+            color: new THREE.Color('0xffffff'),
+            // color: 16777215,
             aoMap: aoMapTexture, // карта окружающей засветки
-            aoMapIntensity: 1.0 // интенсивность карты окружающей засветки
+            aoMapIntensity: 1.5 // интенсивность карты окружающей засветки
         });
 
         const redMaterial = new THREE.MeshPhongMaterial({
