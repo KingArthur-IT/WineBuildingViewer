@@ -99,7 +99,7 @@ class App {
             color: new THREE.Color('0xffffff'),
             // color: 16777215,
             aoMap: aoMapTexture, // карта окружающей засветки
-            aoMapIntensity: 1.5 // интенсивность карты окружающей засветки
+            aoMapIntensity: .7 // интенсивность карты окружающей засветки
         });
 
         const redMaterial = new THREE.MeshPhongMaterial({
