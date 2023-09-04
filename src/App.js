@@ -12,7 +12,7 @@ mouseData = {
 settings = {
     moveStep: {
         x: 0.05,
-        y: 0.1
+        y: 0.06
     },
     maxXRotate: 14.0 * Math.PI / 180.0, //up-down
     minXRotate: -1.0 * Math.PI / 180.0,
@@ -204,8 +204,8 @@ function calculateElementScrollVal(element) {
 }
 
 function animate() {
-    const step = .01
-    const damping = .00001
+    const step = .007
+    const damping = .0001
     //for scroll-x rotation
     if (Math.abs(deltaX - currentDeltaX) > step) {
         currentDeltaX = currentDeltaX + (deltaX - currentDeltaX) * step
