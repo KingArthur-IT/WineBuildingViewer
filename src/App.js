@@ -21,7 +21,7 @@ settings = {
     camera: {
         deep: 10000,
         posX: 0,
-        posY: -160,
+        posY: -130,
         posZ: 1450
     }
 }
