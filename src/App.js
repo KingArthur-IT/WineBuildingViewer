@@ -14,6 +14,7 @@ settings = {
         x: 0.05,
         y: 0.06
     },
+    startYRotation: Math.PI / 2,
     maxXRotate: 14.0 * Math.PI / 180.0, //up-down
     minXRotate: -1.0 * Math.PI / 180.0,
     aspectRatio: 2,
@@ -52,9 +53,6 @@ class App {
         scene.add(ambientLight);
         scene.add(mainLight);
         scene.add(sideLight);
-
-        // const fog = new THREE.FogExp2(new THREE.Color("#FFFFFF"),.6)
-        // scene.fog = fog
 
         renderer = new THREE.WebGLRenderer({ 
             canvas: canvas, 
@@ -96,8 +94,7 @@ class App {
         const aoMapTexture = textureLoader.load("./assets/test/winery_09.jpeg");
 
         const mainMaterial = new THREE.MeshLambertMaterial({
-            color: new THREE.Color('0xffffff'),
-            // color: 16777215,
+            color: '#ffffff',
             aoMap: aoMapTexture, // карта окружающей засветки
             aoMapIntensity: .7 // интенсивность карты окружающей засветки
         });
@@ -118,7 +115,6 @@ class App {
             (object) => {
                 object.scene.traverse( function ( child ) {
                     if ( child instanceof THREE.Mesh ) {
-                        console.log(child);
                         child.geometry.computeVertexNormals();
                         // child.material.side = THREE.DoubleSide;    
                         
@@ -140,6 +136,7 @@ class App {
             },
         )
         sceneObj.scale.set(1500, 1500, 1500);
+        sceneObj.rotation.set(0, settings.startYRotation, 0);
         scene.add(sceneObj);
         
 
@@ -212,7 +209,7 @@ function animate() {
     } else {
         currentDeltaX = currentDeltaX + (deltaX - currentDeltaX) * (deltaX - currentDeltaX) * (deltaX - currentDeltaX) * damping
     }
-    sceneObj.rotation.y = - currentDeltaX * Math.PI
+    sceneObj.rotation.y = settings.startYRotation - currentDeltaX * Math.PI
     
     //for up-dowm rotation for mouse
     currentDeltaY = currentDeltaY + (deltaY - currentDeltaY) * step * 3
