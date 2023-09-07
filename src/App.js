@@ -91,7 +91,7 @@ class App {
         // Создаем загрузчик текстур
         const textureLoader = new THREE.TextureLoader();
         // Загружаем карту окружающей засветки (aomap)
-        const aoMapTexture = textureLoader.load("./assets/test/winery_09.jpeg");
+        const aoMapTexture = textureLoader.load("./assets/winery_09.jpeg");
 
         const mainMaterial = new THREE.MeshLambertMaterial({
             color: '#ffffff',
@@ -109,7 +109,7 @@ class App {
 
         sceneObj = new THREE.Object3D();
         let gltfLoader = new GLTFLoader();
-        gltfLoader.setPath('./assets/test/');
+        gltfLoader.setPath('./assets/');
         gltfLoader.load(
             'winery_09.gltf',
             (object) => {
